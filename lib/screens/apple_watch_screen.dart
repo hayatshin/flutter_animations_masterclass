@@ -15,7 +15,6 @@ class _AppleWatchScreenState extends State<AppleWatchScreen>
     vsync: this,
     duration: const Duration(seconds: 2),
   )..forward();
-  late Animation<double> _progress;
 
   late Animation<double> _redProgress;
   late Animation<double> _greenProgress;
