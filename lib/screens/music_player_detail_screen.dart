@@ -22,6 +22,15 @@ class _MusicPlayerDetailScreenState extends State<MusicPlayerDetailScreen>
     super.dispose();
   }
 
+  String formatTime(double value) {
+    int totalSecons = (value * 60).floor();
+    int minutes = totalSecons ~/ 60;
+    int seconds = totalSecons % 60;
+    String formattedTime =
+        "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
+    return formattedTime;
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -76,22 +85,25 @@ class _MusicPlayerDetailScreenState extends State<MusicPlayerDetailScreen>
           const SizedBox(
             height: 10,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(
+          Padding(
+            padding: const EdgeInsets.symmetric(
               horizontal: 40,
             ),
             child: Row(
               children: [
-                Text(
-                  "00:00",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w600,
+                AnimatedBuilder(
+                  animation: _progressController,
+                  builder: (context, child) => Text(
+                    formatTime(_progressController.value),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-                Spacer(),
-                Text(
+                const Spacer(),
+                const Text(
                   "01:00",
                   style: TextStyle(
                     fontSize: 12,
